@@ -1,0 +1,81 @@
+<div class="container mt-4">
+    <h1 class="text-muted">&bull; Interpolation y Databinding</h1>
+    <small class="badge bg-danger text-dark p-2">Luego de tres segundos va a cambiar el valor por defecto</small>
+    <br>
+    <p>{{titleInterpolation}}</p>
+
+    <small class="badge bg-success text-light p-2">Podemos realizar operaciones y funciones</small>
+    <h3>La suma de 2 + 2 es igual a {{2+2}}</h3>
+
+    <small>Ejemplo utilizando una función</small>
+    <h3>La suma de 10 + 5 es igual a {{getSuma(10,5)}}</h3>
+
+    <p>Encuentra todo el código que se utilizo en esta sección aquí: <span class="text-muted">src\app\app.component.ts</span></p>
+
+    <h1 class="text-muted">&bull; Interpolation y propertybinding</h1>
+    <small>En este caso le indicamos a la propiedad <strong>[placeholder]</strong> que tome el valor de nuestra variable seteada en el archivo <strong>app.component.ts</strong></small>
+    <input type="text" class="form-control" [placeholder]="textoPlaceholder" [disabled]='disabled'>
+    <hr>
+    <div align="center">
+        <img class="img-fluid bg-shadown" [src]="src" alt="Imagen con interpolacion">
+    </div>
+
+    <br>
+
+    <h1 class="text-muted">Event Binding</h1>
+    <h6>{{texto}}</h6>
+    <button class="btn btn-primary" (click)="cambiarTexto()">
+      Click me!
+    </button>
+
+    <hr>
+
+    <h1 class="text-muted">Two Way Binding</h1>
+    <br>
+    <p><span class="text-info">Aquí aparecera lo que digites:</span> {{twoWayText}}</p>
+    <input type="text" class="form-control" placeholder="Escriba un texto aquí" [(ngModel)]="twoWayText">
+    <br>
+
+    <hr>
+    <h1 class="text-muted">&bull; Directivas</h1>
+    Directivas --> Componente / Atributo (ngClass) (ngStyle) / Estructurales (*ngInf) (*ngFor) (*ngSwitch)
+
+    <h1 class="text-muted">NgFor</h1>
+    <div class="container mt-4">
+        <div class="row">
+            <h3>Listado de estudiantes</h3>
+            <button class="btn btn-primary ml-auto" (click)="toogle()">Toggle</button>
+        </div>
+    </div>
+    <br>
+    <table class="table table-hover" *ngIf="mostrar">
+        <caption>Listado de estudiantes con directiva ngForm de Angular</caption>
+        <thead>
+            <th id="idEstudiante">N</th>
+            <th id="nombreEstudiante">Nombre</th>
+            <th id="estadoEstudiante">Estado</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of listEstudiantes; let i = index" [ngSwitch]="item.estado">
+                <td>
+                    <span class="badge bg-dark" *ngSwitchCase="'Graduado'">
+                      {{i+1}} Estudiante graduado
+                </span>
+                    <span class="badge bg-success" *ngSwitchCase="'Aceptable'">
+                      {{i+1}} Estudiante con estado aceptable
+                </span>
+                    <span *ngSwitchDefault="">
+                      {{i+1}}
+                </span>
+                </td>
+                <td [ngStyle]="{'font-style': item.estado === 'Aceptable' ? 'italic' : 'normal'}">{{item.nombre}}</td>
+                <td>
+                    <span [ngClass]="item.estado === 'Graduado' ? 'badge bg-success' : 'badge bg-dark'">
+                    {{item.estado}}
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <h6 *ngIf="listEstudiantes.length === 0">No hay registros para mostrar</h6>
+</div>
